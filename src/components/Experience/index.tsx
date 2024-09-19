@@ -1,4 +1,3 @@
-import { PiCubeFill } from "react-icons/pi";
 import { Timeline } from "./timeline";
 import { MdArrowOutward } from "react-icons/md";
 
