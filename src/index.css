@@ -1,0 +1,169 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-stone-900 text-stone-50
+}
+
+.material-symbols-rounded {
+  @apply w-[1em] h-[1em] overflow-hidden;
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+
+.container {
+  @apply px-4 mx-auto lg:px-8 xl:max-w-6xl;
+}
+
+.img-box {
+  @apply bg-stone-700 overflow-hidden
+}
+
+.img-cover {
+  @apply w-full h-full object-cover
+}
+
+.section {
+  @apply pt-20 lg:pt-32
+}
+
+.reveal {
+  @apply translate-y-20 opacity-0
+}
+
+/* //////////////// */
+
+.headline-1, .headline-2 {
+  @apply max-w-max;
+  background: -webkit-linear-gradient(-10deg, #fafafa, #a1a1a1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.headline-1 {
+  @apply text-5xl leading-tight font-semibold lg:text-[55px] lg:leading-[1.15]
+}
+
+.headline-2 {
+  @apply text-3xl leading-tight font-semibold lg:text-4xl
+}
+
+.title-1 {
+  @apply text-[22px] font-normal
+}
+
+/* //////////////// */
+
+.menu-btn {
+  @apply w-10 h-10 grid place-items-center
+   bg-stone-50/10 rounded-xl ring-inset ring-1
+    ring-stone-50/[0.02] backdrop-blur-2xl
+     hover:bg-stone-50/15 transition-[transform,background-color]
+      active:scale-95
+}
+
+.nav-bar {
+  @apply absolute top-full mt-2 right-0 min-w-40 
+  p-2 bg-stone-50/10 rounded-2xl ring-inset ring-1 
+  ring-stone-50/5 scale-90 isolate blur-sm opacity-0 invisible
+  transition-[opacity,transform,filter] md:static
+  md:flex md:items-center md:mt-0 md:opacity-100 md:blur-0
+  md:visible md:scale-100 backdrop-blur-2xl
+}
+
+.nav-bar.active {
+  @apply visible blur-0 scale-100 opacity-100
+}
+
+.nav-link {
+  @apply grid items-center h-9 px-4 text-sm font-medium tracking-wide 
+  text-stone-50/50 hover:text-stone-50 transition-colors
+}
+
+.nav-link.active {
+  @apply text-stone-900 duration-500
+}
+
+.nav-bar .active-box {
+  @apply absolute bg-stone-50 rounded-lg -z-10 
+  transition-[top,left] duration-500
+}
+
+.btn {
+  @apply max-w-max h-9 flex items-center gap-2 px-4 rounded-xl
+  font-medium text-sm ring-1 ring-stone-50/5 ring-inset transition-[background-color]
+}
+
+.btn-secondary {
+  @apply bg-stone-50 text-stone-900 active:bg-stone-50/80
+}
+
+.btn-primary {
+  @apply h-11 bg-emerald-400 hover:bg-emerald-300 active:bg-emerald-400 text-stone-950
+}
+
+.btn-outline {
+  @apply h-11 bg-stone-800 hover:bg-stone-700 active:bg-stone-800
+}
+
+.skill-card {
+  position: relative;
+  overflow: hidden;
+}
+.skill-card span {
+  position: absolute;
+  display: block;
+}
+.skill-card .bottom-border {
+  bottom: 0;
+  left: 0;
+  width: 95%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent,#03ff6418);
+  animation: bottomSkillCardBorder 2s infinite;
+}
+
+@keyframes bottomSkillCardBorder {
+  0% {
+    left:-100%;
+  }
+  100% {
+    left:0%;
+  }
+}
+
+.skill-card .top-border {
+  top: 0;
+  left: 0;
+  width: 95%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent,#03ff6418);
+  animation: bottomSkillCardBorder 2s infinite;
+}
+
+@keyframes bottomSkillCardBorder {
+  0% {
+    left:-100%;
+  }
+  100% {
+    left:0%;
+  }
+}
+
+.label {
+  @apply block text-stone-200 text-sm font-normal mb-2
+}
+
+.text-field {
+  @apply block outline-none w-full px-3 py-3 text-sm bg-stone-800 
+  rounded-xl ring-1 ring-inset ring-transparent transition-shadow hover:ring-stone-50/5 
+  focus:ring-emerald-400 focus:ring-2
+}
+
+.text-field::placeholder {
+  @apply text-stone-400
+}
