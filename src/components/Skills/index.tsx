@@ -61,10 +61,7 @@ export default function Skills() {
                     Key Skills & Technologies
                 </h2>
                 <p className="reveal text-stone-400 mt-3 mb-8 max-w-[50ch]">
-                    I excel in a range of programming languages and frameworks, 
-                    allowing me to develop efficient and engaging applications. 
-                    With a strong commitment to continuous improvement, I deliver impactful solutions 
-                    that effectively meet user needs and drive results.
+                My expertise in various programming languages and frameworks, enabling me to create efficient and user-friendly applications. My dedication to continuous learning ensures that I consistently deliver impactful solutions tailored to meet user needs and achieve meaningful results.
                 </p>
 
                 <div className="grid gap-3 grid-cols-[repeat(auto-fill,_minmax(250px,_1fr))]">
