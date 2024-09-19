@@ -1,7 +1,7 @@
 import { BiLogoTypescript } from "react-icons/bi"
 import { BsDatabaseFillGear } from "react-icons/bs"
 import { DiPhp } from "react-icons/di"
-import { RiGitMergeFill, RiJavascriptFill, RiNodejsLine, RiReactjsFill } from "react-icons/ri"
+import { RiGitMergeFill, RiNodejsLine, RiReactjsFill } from "react-icons/ri"
 import { SiExpress, SiLaravel } from "react-icons/si"
 
 type skillType = {

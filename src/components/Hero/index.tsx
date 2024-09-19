@@ -1,4 +1,4 @@
-import { Globe } from "../common/Globe";
+// import { Globe } from "../common/Globe";
 import { FaDownload } from "react-icons/fa6";
 import { RiScrollToBottomFill } from "react-icons/ri";
 import { TextGenerateEffect } from "../common/text-generate-effect";

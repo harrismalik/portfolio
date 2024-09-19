@@ -1,6 +1,5 @@
 import { PiCubeFill } from "react-icons/pi";
 import { Timeline } from "./timeline";
-import { title } from "framer-motion/client";
 import { MdArrowOutward } from "react-icons/md";
 
 interface TimelineEntry {
