@@ -29,7 +29,7 @@ export default function Hero() {
                     </h2>
 
                     <div className="flex items-center gap-3">
-                        <a href={Resume} download="Muhammad_Harris_Malik_Resume" className="btn btn-primary text-[18px] pr-3">
+                        <a href={Resume} download="mharrismalik.com_resume" className="btn btn-primary text-[18px] pr-3">
                             Download CV
                             <FaDownload />
                         </a>

@@ -2,7 +2,8 @@ import { BiLogoTypescript } from "react-icons/bi"
 import { BsDatabaseFillGear } from "react-icons/bs"
 import { DiPhp } from "react-icons/di"
 import { RiGitMergeFill, RiNodejsLine, RiReactjsFill } from "react-icons/ri"
-import { SiExpress, SiLaravel } from "react-icons/si"
+import {SiEthers, SiExpress, SiLaravel} from "react-icons/si"
+import { SiSolidity } from "react-icons/si";
 
 type skillType = {
     icon: React.ReactNode,
@@ -32,6 +33,16 @@ const skills: skillType[] = [
         info: 'Superset of JavaScript'
     },
     {
+        icon: <SiSolidity fontSize={"30px"} />,
+        title: 'Solidity',
+        info: 'Smart Contracts for EVM'
+    },
+    {
+        icon: <SiEthers fontSize={"30px"} />,
+        title: 'Ethers.js',
+        info: 'Ethereum JS Library'
+    },
+    {
         icon: <SiExpress fontSize={"30px"} />,
         title: 'Express',
         info: 'Framework for Node.js'
@@ -39,7 +50,7 @@ const skills: skillType[] = [
     {
         icon: <DiPhp fontSize={"30px"} />,
         title: 'PHP',
-        info: 'Server-side Scripting Language'
+        info: 'Server-side Scripting'
     },
     {
         icon: <SiLaravel fontSize={"30px"} />,

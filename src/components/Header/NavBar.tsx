@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import Lenis from 'lenis';
 
 type navItemType = {
     name: string;
@@ -69,6 +70,45 @@ export default function NavBar({isActive}:NavBarType) {
             className: 'nav-link md:hidden'
         }
     ]
+
+    useEffect(() => {
+        // Initialize Lenis
+        const lenis = new Lenis({
+            lerp: 0.1, // Smoothness of scrolling (optional)
+            smoothWheel: true, // Enable smooth scroll on wheel (optional)
+        });
+
+        // Animation frame loop for smooth scrolling
+        const render = (time: number) => {
+            lenis.raf(time);
+            requestAnimationFrame(render);
+        };
+
+        // Start the render loop
+        requestAnimationFrame(render);
+
+        // Handle anchor link clicks with Lenis
+        const handleAnchorClick = (event: MouseEvent) => {
+            const targetId = (event.target as HTMLElement).getAttribute('href')?.substring(1); // Extract ID from href
+            const targetElement = document.getElementById(targetId || '');
+            if (targetElement) {
+                event.preventDefault(); // Prevent default jump scroll behavior
+                lenis.scrollTo(targetElement); // Scroll smoothly to the target element using Lenis
+            }
+        };
+
+        // Add event listener to anchor links
+        const links = document.querySelectorAll('a[href^="#"]');
+        links.forEach((link) => {
+            const anchorLink = link as HTMLAnchorElement; // Ensure link is treated as an HTMLAnchorElement
+            anchorLink.addEventListener('click', handleAnchorClick);
+        });
+
+        // Cleanup on component unmount
+        return () => {
+            lenis.destroy(); // Clean up Lenis when the component unmounts
+        };
+    }, []);
 
     function NavItems() {
         return (
