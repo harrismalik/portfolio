@@ -87,7 +87,6 @@ export default function ProjectInquiryModal({ isOpen, onClose }: ProjectInquiryM
 
             if (response.ok) {
                 formRef.current?.reset();
-                onClose();
                 setShowThankYou(true);
             } else {
                 console.error("Form submission failed");
@@ -102,6 +101,7 @@ export default function ProjectInquiryModal({ isOpen, onClose }: ProjectInquiryM
     useEffect(() => {
         if (isOpen) {
             setIsVisible(true);
+            setShowThankYou(false); // Reset thank you state when modal opens
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
                     setIsAnimating(true);
@@ -347,7 +347,10 @@ export default function ProjectInquiryModal({ isOpen, onClose }: ProjectInquiryM
             </div>
 
             {/* Thank You Modal */}
-            <ThankYouModal isOpen={showThankYou} onClose={() => setShowThankYou(false)} />
+            <ThankYouModal isOpen={showThankYou} onClose={() => {
+                setShowThankYou(false);
+                onClose();
+            }} />
         </div>
     );
 }
