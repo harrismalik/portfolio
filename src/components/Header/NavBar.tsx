@@ -67,7 +67,7 @@ export default function NavBar({isActive}:NavBarType) {
         {
             name: 'Contact',
             link: '#contact',
-            className: 'nav-link md:hidden'
+            className: 'nav-link'
         }
     ]
 

@@ -1,5 +1,5 @@
 import { IoArrowForwardCircle } from "react-icons/io5";
-import { PiCubeFill } from "react-icons/pi";
+import headshot from "../../assets/pictures/headshot.jpg";
 
 type footerLinkType = {
     name: string,
@@ -91,8 +91,12 @@ export default function Footer() {
                 </div>
 
                 <div className="flex items-center justify-between pt-10 mb-8">
-                    <a href="" className="">
-                        <PiCubeFill fontSize={"35px"} />
+                    <a href="/" className="logo">
+                        <img
+                            src={headshot}
+                            alt="Harris Malik"
+                            className="w-10 h-10 rounded-full object-cover ring-2 ring-stone-700/50 hover:ring-emerald-400/50 transition-all duration-200"
+                        />
                     </a>
                     <p className="text-stone-500 text-sm">
                         &copy; 2025 <span className="text-stone-200">Muhammad Harris Malik</span>

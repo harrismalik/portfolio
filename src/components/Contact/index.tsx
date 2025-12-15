@@ -30,10 +30,10 @@ export default function Contact() {
                     <h2 className="headline-2 lg:max-w-[12ch]">
                         Have a Project in Mind?
                     </h2>
-                    <p className="text-stone-400 mt-8 max-w-[50ch] lg:max-w-[30ch]">
+                    <p className="text-stone-400 mt-2 max-w-[50ch] lg:max-w-[30ch]">
                         Whether it's an AI-powered application, automation system, or a full product build, let's talk about bringing your idea to life.
                     </p>
-                    <div className="flex items-center gap-2 mt-auto">
+                    <div className="flex items-center gap-2 mt-4 md:mt-auto">
                         {
                             socials.map((item:socialType,key) => (
                                 <a href={item.href} key={key} target="_blank" className="w-12 h-12 grid place-items-center 
@@ -46,18 +46,18 @@ export default function Contact() {
                 <form action="https://formcarry.com/s/EJc8A-tdkq1" method="POST" className="xl:pl-10 2xl:pl-20">
                     <div className="md:grid md:items-center md:grid-cols-2 md:gap-2">
                         <div className="mb-4">
-                            <label htmlFor="name" className="">Name</label>
+                            {/* <label htmlFor="name" className="">Name</label> */}
                             <input type="text" name="name" className="text-field" id="name"
                              autoComplete="name" placeholder="Enter Name" required/>
                         </div>
                         <div className="mb-4">
-                            <label htmlFor="email" className="">Email</label>
+                            {/* <label htmlFor="email" className="">Email</label> */}
                             <input type="email" name="email" className="text-field" id="email"
                              autoComplete="email" placeholder="Enter Email" required/>
                         </div>
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="message" className="label">Message</label>
+                        {/* <label htmlFor="message" className="label">Message</label> */}
                         <textarea name="message" id="message" className="text-field resize-y min-h-32 max-h-80" placeholder="Write your message!" required></textarea>
                     </div>
                     <button type="submit" className="btn btn-primary [&]:max-w-full w-full justify-center">

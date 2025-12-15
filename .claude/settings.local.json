@@ -4,7 +4,9 @@
       "Bash(ls -la \"c:\\MyPC\\Projects\\portfolio\\assets\\resume\"\" 2>/dev/null || dir \"c:MyPCProjectsportfolioassetsresume\" 2>nul || echo \"Directory not found \")",
       "Bash(unzip:*)",
       "Bash(fold:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(copy \"c:\\MyPC\\Projects\\portfolio\\src\\assets\\pictures\\headshot.jpg\" \"c:\\MyPC\\Projects\\portfolio\\public\\favicon.jpg\")",
+      "Bash(dir \"c:\\MyPC\\Projects\\portfolio\\public\\favicon.jpg\")"
     ]
   }
 }

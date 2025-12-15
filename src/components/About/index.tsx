@@ -40,7 +40,7 @@ export default function About() {
                                 </div>
                             ))
                         }
-                        <PiCubeFill className="ml-auto md:w-[40px] md:h-[40px]" fontSize={"35px"} />
+                        <PiCubeFill className="hidden md:block ml-auto md:w-[40px] md:h-[40px]" fontSize={"35px"} />
                     </div>
                 </div>
             </div>
