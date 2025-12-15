@@ -51,7 +51,7 @@ export default function Footer() {
                             Let&apos;s build something great
                         </h2>
                         <a href="mailto:contact@mharrismalik.com" className="btn btn-primary text-[18px] pr-3">
-                            Start a Conversation
+                            contact@mharrismalik.com
                             <IoArrowForwardCircle />
                         </a>
                     </div>
