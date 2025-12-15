@@ -3,7 +3,6 @@ import { IoArrowForward } from "react-icons/io5";
 import { HiOutlineBriefcase } from "react-icons/hi2";
 import { useState } from "react";
 import ProjectInquiryModal from "../common/ProjectInquiryModal";
-import headshot from "../../assets/pictures/headshot.jpg";
 
 const words = ` Open to new projects`;
 

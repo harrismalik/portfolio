@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { IoChevronDown } from "react-icons/io5";
+import ThankYouModal from "./ThankYouModal";
 
 type ProjectInquiryModalProps = {
     isOpen: boolean;
@@ -11,6 +12,92 @@ export default function ProjectInquiryModal({ isOpen, onClose }: ProjectInquiryM
     const modalRef = useRef<HTMLDivElement>(null);
     const [isVisible, setIsVisible] = useState(false);
     const [isAnimating, setIsAnimating] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [showThankYou, setShowThankYou] = useState(false);
+    const formRef = useRef<HTMLFormElement>(null);
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+
+        const formData = new FormData(e.currentTarget);
+        const name = formData.get("name") as string;
+        const email = formData.get("email") as string;
+        const projectType = formData.get("project_type") as string;
+        const budget = formData.get("budget") as string;
+        const timeline = formData.get("timeline") as string;
+        const message = formData.get("message") as string;
+
+        const htmlContent = `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                <h2 style="color: #34d399; border-bottom: 2px solid #34d399; padding-bottom: 10px;">New Project Inquiry</h2>
+                <table style="width: 100%; border-collapse: collapse;">
+                    <tr>
+                        <td style="padding: 10px 0; border-bottom: 1px solid #e5e5e5; font-weight: bold; width: 140px;">Name:</td>
+                        <td style="padding: 10px 0; border-bottom: 1px solid #e5e5e5;">${name}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px 0; border-bottom: 1px solid #e5e5e5; font-weight: bold;">Email:</td>
+                        <td style="padding: 10px 0; border-bottom: 1px solid #e5e5e5;"><a href="mailto:${email}">${email}</a></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px 0; border-bottom: 1px solid #e5e5e5; font-weight: bold;">Project Type:</td>
+                        <td style="padding: 10px 0; border-bottom: 1px solid #e5e5e5;">${projectType}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px 0; border-bottom: 1px solid #e5e5e5; font-weight: bold;">Budget Range:</td>
+                        <td style="padding: 10px 0; border-bottom: 1px solid #e5e5e5;">${budget || "Not specified"}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px 0; border-bottom: 1px solid #e5e5e5; font-weight: bold;">Timeline:</td>
+                        <td style="padding: 10px 0; border-bottom: 1px solid #e5e5e5;">${timeline || "Not specified"}</td>
+                    </tr>
+                </table>
+                <div style="margin-top: 20px;">
+                    <h3 style="color: #333; margin-bottom: 10px;">Project Description:</h3>
+                    <p style="background: #f5f5f5; padding: 15px; border-radius: 8px; line-height: 1.6;">${message.replace(/\n/g, "<br>")}</p>
+                </div>
+            </div>
+        `;
+
+        const apiUrl = import.meta.env.VITE_NOTIFICATION_API_URL;
+        const apiAuth = import.meta.env.VITE_NOTIFICATION_API_AUTH;
+        const notificationEmail = import.meta.env.VITE_NOTIFICATION_EMAIL;
+
+        try {
+            const response = await fetch(apiUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Authorization": apiAuth
+                },
+                body: JSON.stringify({
+                    type: "website_form",
+                    to: {
+                        id: notificationEmail,
+                        email: notificationEmail
+                    },
+                    email: {
+                        subject: `New Project Inquiry from ${name}`,
+                        html: htmlContent
+                    }
+                })
+            });
+
+            if (response.ok) {
+                formRef.current?.reset();
+                onClose();
+                setShowThankYou(true);
+            } else {
+                console.error("Form submission failed");
+            }
+        } catch (error) {
+            console.error("Error submitting form:", error);
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
 
     useEffect(() => {
         if (isOpen) {
@@ -123,8 +210,7 @@ export default function ProjectInquiryModal({ isOpen, onClose }: ProjectInquiryM
                         </p>
                     </div>
 
-                    <form action="https://formcarry.com/s/EJc8A-tdkq1" method="POST">
-                        <input type="hidden" name="_subject" value="New Project Inquiry" />
+                    <form ref={formRef} onSubmit={handleSubmit}>
 
                         {/* Name & Email Row */}
                         <div className="grid md:grid-cols-2 gap-3 mb-3">
@@ -248,16 +334,20 @@ export default function ProjectInquiryModal({ isOpen, onClose }: ProjectInquiryM
                         {/* Submit Button */}
                         <button
                             type="submit"
+                            disabled={isSubmitting}
                             className="w-full py-3 px-6 bg-emerald-500 hover:bg-emerald-400
                                 text-stone-950 font-semibold rounded-xl
                                 transition-all duration-200 hover:shadow-lg hover:shadow-emerald-500/25
-                                active:scale-[0.98]"
+                                active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed"
                         >
-                            Send Inquiry
+                            {isSubmitting ? "Sending..." : "Send Inquiry"}
                         </button>
                     </form>
                 </div>
             </div>
+
+            {/* Thank You Modal */}
+            <ThankYouModal isOpen={showThankYou} onClose={() => setShowThankYou(false)} />
         </div>
     );
 }

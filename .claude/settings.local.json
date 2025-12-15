@@ -6,7 +6,8 @@
       "Bash(fold:*)",
       "Bash(npm run build:*)",
       "Bash(copy \"c:\\MyPC\\Projects\\portfolio\\src\\assets\\pictures\\headshot.jpg\" \"c:\\MyPC\\Projects\\portfolio\\public\\favicon.jpg\")",
-      "Bash(dir \"c:\\MyPC\\Projects\\portfolio\\public\\favicon.jpg\")"
+      "Bash(dir \"c:\\MyPC\\Projects\\portfolio\\public\\favicon.jpg\")",
+      "Bash(npx tsc:*)"
     ]
   }
 }
