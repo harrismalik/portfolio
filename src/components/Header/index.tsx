@@ -6,7 +6,7 @@ export default function Header() {
     const [navIsActive, setNavIsActive] = useState(false)
 
     return (
-        <header className="w-full top-0 left-0 fixed flex items-center h-20 z-20">
+        <header className="w-full top-0 left-0 fixed flex items-center h-20 z-[20]">
             {/* Progressive blur background */}
             <div className="header-blur-bg"></div>
             <div className="container max-w-screen-2xl w-full mx-auto px-4 flex justify-between items-center md:px-6 md:grid md:grid-cols-[1fr,3fr,1fr] relative z-10">
