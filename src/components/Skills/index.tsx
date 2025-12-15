@@ -1,9 +1,9 @@
-import { BiLogoTypescript } from "react-icons/bi"
-import { BsDatabaseFillGear } from "react-icons/bs"
-import { DiPhp } from "react-icons/di"
-import { RiGitMergeFill, RiNodejsLine, RiReactjsFill } from "react-icons/ri"
-import {SiEthers, SiExpress, SiLaravel} from "react-icons/si"
-import { SiSolidity } from "react-icons/si";
+import { BiLogoTypescript, BiLogoTailwindCss } from "react-icons/bi"
+import { BsDatabaseFillGear, BsRobot } from "react-icons/bs"
+import { DiPython } from "react-icons/di"
+import { RiNextjsFill, RiNodejsLine, RiReactjsFill } from "react-icons/ri"
+import { SiExpress, SiLaravel, SiLangchain } from "react-icons/si"
+import { TbApi } from "react-icons/tb"
 
 type skillType = {
     icon: React.ReactNode,
@@ -15,42 +15,47 @@ const skills: skillType[] = [
     {
         icon: <RiReactjsFill fontSize={"30px"} />,
         title: 'React',
-        info: 'JS Library'
+        info: 'Frontend Library'
     },
     {
-        icon: <RiGitMergeFill fontSize={"30px"} />,
-        title: 'Git',
-        info: 'Version Management'
+        icon: <RiNextjsFill fontSize={"30px"} />,
+        title: 'Next.js',
+        info: 'React Framework'
     },
     {
         icon: <RiNodejsLine fontSize={"30px"} />,
-        title: 'Node',
+        title: 'Node.js',
         info: 'JS Runtime'
     },
     {
         icon: <BiLogoTypescript fontSize={"30px"} />,
         title: 'TypeScript',
-        info: 'Superset of JavaScript'
+        info: 'Type-Safe JavaScript'
     },
     {
-        icon: <SiSolidity fontSize={"30px"} />,
-        title: 'Solidity',
-        info: 'Smart Contracts for EVM'
+        icon: <DiPython fontSize={"30px"} />,
+        title: 'Python',
+        info: 'AI & Backend'
     },
     {
-        icon: <SiEthers fontSize={"30px"} />,
-        title: 'Ethers.js',
-        info: 'Ethereum JS Library'
+        icon: <BsRobot fontSize={"30px"} />,
+        title: 'AI Agents',
+        info: 'LangChain & LangGraph'
+    },
+    {
+        icon: <TbApi fontSize={"30px"} />,
+        title: 'Voice AI',
+        info: 'VAPI & Voice Models'
+    },
+    {
+        icon: <SiLangchain fontSize={"30px"} />,
+        title: 'LLM APIs',
+        info: 'Claude, OpenAI, RAG'
     },
     {
         icon: <SiExpress fontSize={"30px"} />,
         title: 'Express',
-        info: 'Framework for Node.js'
-    },
-    {
-        icon: <DiPhp fontSize={"30px"} />,
-        title: 'PHP',
-        info: 'Server-side Scripting'
+        info: 'Node.js Framework'
     },
     {
         icon: <SiLaravel fontSize={"30px"} />,
@@ -58,9 +63,14 @@ const skills: skillType[] = [
         info: 'PHP Framework'
     },
     {
+        icon: <BiLogoTailwindCss fontSize={"30px"} />,
+        title: 'Tailwind CSS',
+        info: 'Utility-First CSS'
+    },
+    {
         icon: <BsDatabaseFillGear fontSize={"30px"} />,
-        title: 'SQL / NoSQL',
-        info: 'Databases'
+        title: 'Databases',
+        info: 'SQL & NoSQL'
     }
 ]
 
@@ -69,10 +79,10 @@ export default function Skills() {
         <section id="skills" className="section">
             <div className="container">
                 <h2 className="reveal headline-2">
-                    Key Skills & Technologies
+                    What I Work With
                 </h2>
                 <p className="reveal text-stone-400 mt-3 mb-8 max-w-[50ch]">
-                My expertise in various programming languages and frameworks, enabling me to create efficient and user-friendly applications. My dedication to continuous learning ensures that I consistently deliver impactful solutions tailored to meet user needs and achieve meaningful results.
+                The tools I use to turn your ideas into reality. Modern AI capabilities combined with battle-tested full-stack technologies, optimized for products that need to ship.
                 </p>
 
                 <div className="grid gap-3 grid-cols-[repeat(auto-fill,_minmax(250px,_1fr))]">

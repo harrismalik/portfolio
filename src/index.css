@@ -37,11 +37,15 @@ body {
 
 /* //////////////// */
 
-.headline-1, .headline-2 {
+.headline-1, .headline-2, .main-heading {
   @apply max-w-max;
   background: -webkit-linear-gradient(-10deg, #fafafa, #a1a1a1);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.main-heading {
+  @apply text-2xl lg:text-4xl leading-tight font-semibold lg:leading-[1.15]
 }
 
 .headline-1 {

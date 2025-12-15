@@ -28,10 +28,10 @@ export default function Contact() {
             <div className="container lg:grid lg:grid-cols-2 lg:items-stretch">
                 <div className="mb-12 lg:mb-0 lg:flex lg:flex-col">
                     <h2 className="headline-2 lg:max-w-[12ch]">
-                        Let's Talk
+                        Have a Project in Mind?
                     </h2>
                     <p className="text-stone-400 mt-8 max-w-[50ch] lg:max-w-[30ch]">
-                        Let's work together to make something awesome.
+                        Whether it's an AI-powered application, automation system, or a full product build, let's talk about bringing your idea to life.
                     </p>
                     <div className="flex items-center gap-2 mt-auto">
                         {

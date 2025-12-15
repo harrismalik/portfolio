@@ -49,10 +49,10 @@ export default function Footer() {
                 <div className="lg:grid lg:grid-cols-2">
                     <div className="mb-10">
                         <h2 className="headline-1 mb-8 lg:max-w-[12ch]">
-                            Let&apos;s work together
+                            Let&apos;s build something great
                         </h2>
-                        <a href="mailto:harrismalik4647@gmail.com" className="btn btn-primary text-[18px] pr-3">
-                            Let's Talk
+                        <a href="mailto:contact@mharrismalik.com" className="btn btn-primary text-[18px] pr-3">
+                            Start a Conversation
                             <IoArrowForwardCircle />
                         </a>
                     </div>
@@ -95,7 +95,7 @@ export default function Footer() {
                         <PiCubeFill fontSize={"35px"} />
                     </a>
                     <p className="text-stone-500 text-sm">
-                        &copy; 2024 <span className="text-stone-200">mharrismalik</span>
+                        &copy; 2025 <span className="text-stone-200">Muhammad Harris Malik</span>
                     </p>
                 </div>
             </div>

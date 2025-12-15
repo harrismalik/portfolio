@@ -60,49 +60,40 @@ function createExpObj(experiences: expType[]): TimelineEntry[] {
 export default function Experience() {
     const data: TimelineEntry[] = createExpObj([
         {
-            timeString: "Mid 2023",
+            timeString: "2024 - Present",
+            company: {
+                link:"https://vconekt.com/",
+                name:"Vconekt"
+            },
+            description: "Leading development of SaaS applications with AI-powered features. Shipped production AI Voice Agents handling 200+ daily conversations with sub-500ms latency. Architected omnichannel workflow automation automating 60% of customer inquiries.",
+            tools: ["React", "Next.js", "Python", "LangChain", "VAPI", "Node.js"]
+        },
+        {
+            timeString: "2023 - 2024",
             company: {
                 link:"https://www.asfargroup.ae/",
                 name:"Asfar Group"
             },
-            description: "Developed and styled interavtive web apps and written multiple API's.",
-            tools: ["TypeScript", "Next", "Laravel", "PHP"]
+            description: "Built multiple web applications achieving performing frontends and scalable backends. Led ERP platform development for travel and tourism, enhancing operational workflows. Worked collaboratively across departments to design and deliver customized solutions.",
+            tools: ["TypeScript", "Next.js", "React", "Laravel", "Node.js"]
         },
         {
-            timeString: "2022",
+            timeString: "2021 - 2023",
             company: {
                 link:"https://uforiainfotech.com/",
                 name:"Uforia Infotech | Glorify"
             },
-            description: "Year of exciting features and intense coding. Our product winning GOLD at P@SHA ICT Award and featured at numrious places.",
-            tools: ["TypeScript", "Fabric.js", "React", "Node"]
+            description: "Developed complex canvas features for Glorify, an award-winning SaaS tool (P@SHA ICT Award 2022 Gold, Product Hunt Featured) later acquired by Leadspages. Built API-driven applications serving 100,000+ monthly active users.",
+            tools: ["TypeScript", "Fabric.js", "React", "Redux-Saga", "Node.js"]
         },
         {
-            timeString: "2021",
-            company: {
-                link:"https://uforiainfotech.com/",
-                name:"Uforia Infotech | Glorify"
-            },
-            description: "Falling in love with creative coding xD. It's really been an year of learning and exploring, worked on performance intensive features and scalability.",
-            tools: ["React", "Canvas", "Fabric.js", "Laravel", "PHP"]
-        },
-        {
-            timeString: "Early 2021",
+            timeString: "2020 - 2021",
             company: {
                 link:"https://atoptimize.com/",
                 name:"AtOptimize"
             },
-            description: "Developed, styled and maintained ecommerce web applications. Worked on creating and optimizing wordpress stores and laravel apps",
-            tools: ["PHP", "Laravel", "Javascript", "Wordpress"]
-        },
-        {
-            timeString: "2020",
-            company: {
-                link:"https://zaf-technologies.com/",
-                name:"Zaf Technologies"
-            },
-            description: "This is where I first got introduced to Laravel while working on an in-house supply chain management system as a full-stack developer.",
-            tools: ["PHP", "Laravel", "Javascript", "MySQL"]
+            description: "Designed and implemented web applications for ecommerce businesses. Built dynamic web pages enhancing user experience and operational efficiency.",
+            tools: ["PHP", "Laravel", "WordPress", "JavaScript", "MySQL"]
         },
     ])
     return (

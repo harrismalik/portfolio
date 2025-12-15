@@ -1,28 +1,9 @@
 import NavBar from "./NavBar";
-import {useEffect, useState} from "react";
-import toast, {Toaster} from 'react-hot-toast';
+import {useState} from "react";
 import { PiCubeFill } from "react-icons/pi";
 
 export default function Header() {
     const [navIsActive, setNavIsActive] = useState(false)
-
-    useEffect(() => {
-        const notify = () => toast('I’m actively seeking new opportunities in Web3. If you\'re looking to collaborate or have exciting Web3 projects in mind, feel free to reach out. Let\'s build the future together! 🔥🔥🔥',
-            {
-                // icon: '🔥',
-                duration: 26000,
-                position:"bottom-right",
-                style: {
-                    borderRadius: '10px',
-                    background: '#a1a1a1',
-                    color: 'rgb(28 25 23)',
-                    minWidth: '400px',
-                },
-                removeDelay: 1000,
-            }
-        );
-        setTimeout(notify, 1000);
-    },[])
 
     return (
         <header className="w-full top-0 left-0 fixed flex items-center h-20 z-20">
@@ -40,7 +21,7 @@ export default function Header() {
                         </span>
                     </button>
                     <NavBar isActive={navIsActive} />
-                    <Toaster />
+                    {/*<Toaster />*/}
                 </div>
                 <a href="#contact" className="btn btn-secondary max-md:hidden md:justify-self-end">
                     Contact Me
