@@ -18,9 +18,9 @@ const projects:projectType[] = [
     },
     {
         image:animatingUIImage,
-        title:'Animating UI',
+        title:'Depricated Portfolio',
         tags:['Animation','GSAP','UI','React'],
-        projectLink:''
+        projectLink:'https://mharrismalik-depricated.vercel.app/'
     }
 ]
 
