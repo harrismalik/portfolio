@@ -1,71 +1,122 @@
-import animatingUIImage from '../../assets/projects/portfolio_design_animation.png';
-import pixelArtCanvasImage from '../../assets/projects/pixel_art_canvas.png';
 import { GoArrowUpRight } from "react-icons/go";
+import { FaSquareGithub } from "react-icons/fa6";
+import animatingUIImage from "../../assets/projects/portfolio_design_animation.png";
+import pixelArtCanvasImage from "../../assets/projects/pixel_art_canvas.png";
+import { SectionHeader } from "../common/SectionHeader";
+import { Reveal } from "../common/Reveal";
 
-type projectType = {
-    image: string,
-    title: string,
-    tags: string[],
-    projectLink: string
-}
+type Project = {
+  index: string;
+  image: string;
+  title: string;
+  description: string;
+  tags: string[];
+  projectLink: string;
+};
 
-const projects:projectType[] = [
-    {
-        image:pixelArtCanvasImage,
-        title:'Pixel Art Canvas',
-        tags:['Next.js','React','Zustand','Tailwind CSS','Canvas'],
-        projectLink:'https://pixelartcanvas.vercel.app/'
-    },
-    {
-        image:animatingUIImage,
-        title:'Depricated Portfolio',
-        tags:['Animation','GSAP','UI','React'],
-        projectLink:'https://mharrismalik-depricated.vercel.app/'
-    }
-]
+const projects: Project[] = [
+  {
+    index: "01",
+    image: pixelArtCanvasImage,
+    title: "Pixel Art Canvas",
+    description:
+      "A performant, browser-based pixel-art editor with layered canvas rendering, smooth zoom, and instant export.",
+    tags: ["Next.js", "React", "Zustand", "Tailwind", "Canvas"],
+    projectLink: "https://pixelartcanvas.vercel.app/",
+  },
+  {
+    index: "02",
+    image: animatingUIImage,
+    title: "Portfolio v1 — Motion Study",
+    description:
+      "A GSAP-driven animated portfolio exploring scroll-linked motion and playful, tactile micro-interactions.",
+    tags: ["GSAP", "Animation", "React", "UI"],
+    projectLink: "https://mharrismalik-depricated.vercel.app/",
+  },
+];
 
 export default function Work() {
-    return (
-        <section className="section">
-            <div className="container">
-                <h2 className="reveal headline-2 mb-8">
-                    Fun Projects <br/><span className='italic text-sm'>( this website is under development, adding more fun project soon..! )</span>
-                </h2>
-                <div className="grid gap-x-4 gap-y-5 grid-cols-[repeat(auto-fill,_minmax(280px,_1fr))]">
-                    {
-                        projects.map((item:projectType,key:number) => (
-                            <div className="reveal relative p-4 rounded-2xl bg-stone-800 
-                            hover:bg-stone-700/50 active:bg-stone-700/60 ring-1 ring-inset 
-                            ring-stone-50/5 transition-colors" key={key}>
-                                <figure className="img-box aspect-square rounded-lg">
-                                    <img src={item.image} alt={item.title} className="img-cover" loading="lazy" />
-                                </figure>
+  return (
+    <section id="work" className="section">
+      <div className="container">
+        <SectionHeader
+          eyebrow="Selected work"
+          title="Things I've built"
+          description="A few products and experiments — from AI-driven tools to motion-rich interfaces."
+        />
 
-                                <div className="flex items-center justify-between gap-4">
-                                    <div>
-                                        <h3 className="title-1 mb-3 mt-3 flex items-center gap-2">
-                                            {item.title}
-                                            <span>
-                                            <GoArrowUpRight />
-                                            </span>
-                                        </h3>
-                                        <div className="flex flex-wrap items-center gap-2">
-                                            {item.tags.map((_item:string,key:number) => (
-                                                <span className="h-8 text-sm text-stone-400 bg-stone-50/5 
-                                                grid items-center px-3 rounded-lg" key={key}>
-                                                    {_item}
-                                                </span>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </div>
+        <div className="mt-12 grid gap-4 md:grid-cols-2">
+          {projects.map((p, i) => (
+            <Reveal key={p.title} delay={i * 0.08}>
+              <a
+                href={p.projectLink}
+                target="_blank"
+                rel="noreferrer"
+                className="panel panel-hover group block h-full overflow-hidden"
+              >
+                <figure className="img-box relative aspect-[16/10] overflow-hidden">
+                  <img
+                    src={p.image}
+                    alt={p.title}
+                    loading="lazy"
+                    decoding="async"
+                    className="img-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/10 to-transparent" />
+                  <span className="absolute right-4 top-4 grid h-10 w-10 -translate-y-1 place-items-center rounded-full bg-ink/60 text-white opacity-0 ring-1 ring-white/15 backdrop-blur transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+                    <GoArrowUpRight />
+                  </span>
+                </figure>
 
-                                <a href={item.projectLink} className="absolute inset-0" target="_blank"></a>
-                            </div>
-                        ))
-                    }
+                <div className="p-6">
+                  <div className="flex items-center justify-between gap-3">
+                    <h3 className="font-display text-xl font-semibold text-white">
+                      {p.title}
+                    </h3>
+                    <span className="font-mono text-xs text-white/35">
+                      {p.index}
+                    </span>
+                  </div>
+                  <p className="mt-2.5 max-w-[48ch] text-sm leading-relaxed text-white/55">
+                    {p.description}
+                  </p>
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {p.tags.map((t) => (
+                      <span key={t} className="chip">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
                 </div>
+              </a>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal delay={0.1}>
+          <a
+            href="https://github.com/harrismalik"
+            target="_blank"
+            rel="noreferrer"
+            className="panel panel-hover group mt-4 flex items-center justify-between gap-4 p-6"
+          >
+            <div className="flex items-center gap-4">
+              <span className="grid h-11 w-11 place-items-center rounded-xl bg-white/5 text-2xl text-white/80 transition-colors group-hover:text-accent">
+                <FaSquareGithub />
+              </span>
+              <div>
+                <p className="font-display font-semibold text-white">
+                  More on GitHub
+                </p>
+                <p className="text-sm text-white/50">
+                  Open-source experiments and works in progress.
+                </p>
+              </div>
             </div>
-        </section>
-    )
+            <GoArrowUpRight className="text-xl text-white/40 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent" />
+          </a>
+        </Reveal>
+      </div>
+    </section>
+  );
 }

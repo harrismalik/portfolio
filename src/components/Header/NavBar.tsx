@@ -1,130 +1,94 @@
-import { useEffect, useRef } from "react";
-import Lenis from 'lenis';
+import { useEffect, useRef, useState } from "react";
+import type { MouseEvent } from "react";
+import { useLenis } from "lenis/react";
+import { cn } from "../../lib/cn";
 
-type navItemType = {
-    name: string;
-    link: string;
-    className: string;
-    ref?: React.Ref<HTMLAnchorElement>;
+type NavItem = { name: string; id: string };
+
+const NAV_ITEMS: NavItem[] = [
+  { name: "Home", id: "home" },
+  { name: "About", id: "about" },
+  { name: "Services", id: "services" },
+  { name: "Work", id: "work" },
+  { name: "Contact", id: "contact" },
+];
+
+type NavBarProps = {
+  isActive: boolean;
+  onNavigate?: () => void;
 };
 
-type NavBarType = {
-    isActive:boolean
-}
+export default function NavBar({ isActive, onNavigate }: NavBarProps) {
+  const lenis = useLenis();
+  const [activeId, setActiveId] = useState<string>("home");
+  const linkRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
+  const boxRef = useRef<HTMLDivElement>(null);
 
-export default function NavBar({isActive}:NavBarType) {
-    const lastActive = useRef<HTMLAnchorElement | null>(null);
-    const activeBox = useRef<HTMLDivElement | null>(null);
+  const positionBox = () => {
+    const el = linkRefs.current[activeId];
+    const box = boxRef.current;
+    if (!el || !box) return;
+    box.style.top = `${el.offsetTop}px`;
+    box.style.left = `${el.offsetLeft}px`;
+    box.style.width = `${el.offsetWidth}px`;
+    box.style.height = `${el.offsetHeight}px`;
+  };
 
-    const initActiveBox = () => {
-        if(activeBox.current && lastActive.current) {
-            activeBox.current.style.top =  lastActive.current.offsetTop + 'px'
-            activeBox.current.style.left =  lastActive.current.offsetLeft + 'px'
-            activeBox.current.style.width =  lastActive.current.offsetWidth + 'px'
-            activeBox.current.style.height =  lastActive.current.offsetHeight + 'px'
-        }
+  useEffect(positionBox, [activeId, isActive]);
+
+  useEffect(() => {
+    window.addEventListener("resize", positionBox);
+    return () => window.removeEventListener("resize", positionBox);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeId]);
+
+  // Scroll-spy: highlight the section currently in the viewport band.
+  useEffect(() => {
+    const sections = NAV_ITEMS.map((i) => document.getElementById(i.id)).filter(
+      (s): s is HTMLElement => s !== null,
+    );
+    if (!sections.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]) setActiveId(visible[0].target.id);
+      },
+      { rootMargin: "-45% 0px -50% 0px", threshold: [0, 0.2, 0.5, 1] },
+    );
+
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  }, []);
+
+  const handleClick = (e: MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    const el = document.getElementById(id);
+    if (el) {
+      if (lenis) lenis.scrollTo(el, { offset: -80 });
+      else el.scrollIntoView({ behavior: "smooth" });
     }
+    onNavigate?.();
+  };
 
-    useEffect(() => {
-        initActiveBox()
-        window.addEventListener('resize',initActiveBox)
-    },[])
-
-    const changeLink = (event:React.MouseEvent<HTMLAnchorElement>) => {
-        lastActive.current?.classList.remove('active')
-        event.currentTarget.classList.add('active');
-        lastActive.current = event.currentTarget;
-        if(activeBox.current && lastActive.current) {
-            activeBox.current.style.top =  event.currentTarget.offsetTop + 'px'
-            activeBox.current.style.left =  event.currentTarget.offsetLeft + 'px'
-            activeBox.current.style.width =  event.currentTarget.offsetWidth + 'px'
-            activeBox.current.style.height =  event.currentTarget.offsetHeight + 'px'
-        }
-    }
-
-    const navItems: navItemType[] = [
-        {
-            name: 'Home',
-            link: '#home',
-            className: 'nav-link active',
-            ref: lastActive
-        },
-        {
-            name: 'About',
-            link: '#about',
-            className: 'nav-link'
-        },
-        {
-            name: 'Skills',
-            link: '#skills',
-            className: 'nav-link'
-        },
-        {
-            name: 'Work',
-            link: '#work',
-            className: 'nav-link'
-        },
-        {
-            name: 'Contact',
-            link: '#contact',
-            className: 'nav-link'
-        }
-    ]
-
-    useEffect(() => {
-        // Initialize Lenis
-        const lenis = new Lenis({
-            lerp: 0.1, // Smoothness of scrolling (optional)
-            smoothWheel: true, // Enable smooth scroll on wheel (optional)
-        });
-
-        // Animation frame loop for smooth scrolling
-        const render = (time: number) => {
-            lenis.raf(time);
-            requestAnimationFrame(render);
-        };
-
-        // Start the render loop
-        requestAnimationFrame(render);
-
-        // Handle anchor link clicks with Lenis
-        const handleAnchorClick = (event: MouseEvent) => {
-            const targetId = (event.target as HTMLElement).getAttribute('href')?.substring(1); // Extract ID from href
-            const targetElement = document.getElementById(targetId || '');
-            if (targetElement) {
-                event.preventDefault(); // Prevent default jump scroll behavior
-                lenis.scrollTo(targetElement); // Scroll smoothly to the target element using Lenis
-            }
-        };
-
-        // Add event listener to anchor links
-        const links = document.querySelectorAll('a[href^="#"]');
-        links.forEach((link) => {
-            const anchorLink = link as HTMLAnchorElement; // Ensure link is treated as an HTMLAnchorElement
-            anchorLink.addEventListener('click', handleAnchorClick);
-        });
-
-        // Cleanup on component unmount
-        return () => {
-            lenis.destroy(); // Clean up Lenis when the component unmounts
-        };
-    }, []);
-
-    function NavItems() {
-        return (
-            <>{navItems.map((item: navItemType, key: number) =>
-                <a href={item.link} className={item.className}
-                key={key} ref={item.ref} onClick={changeLink}>
-                    {item.name}
-                </a>
-            )}</>
-        )
-    }
-
-    return (
-        <nav className={"nav-bar " + (isActive?'active':'')}>
-            <NavItems/>
-            <div className="active-box" ref={activeBox}></div>
-        </nav>
-    )
+  return (
+    <nav className={cn("nav-bar", isActive && "active")}>
+      {NAV_ITEMS.map((item) => (
+        <a
+          key={item.id}
+          href={`#${item.id}`}
+          ref={(el) => {
+            linkRefs.current[item.id] = el;
+          }}
+          onClick={(e) => handleClick(e, item.id)}
+          className={cn("nav-link", activeId === item.id && "active")}
+        >
+          {item.name}
+        </a>
+      ))}
+      <div className="active-box" ref={boxRef} />
+    </nav>
+  );
 }

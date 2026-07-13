@@ -1,50 +1,38 @@
-import ReactLenis from "lenis/react"
-import gsap from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { useGSAP } from "@gsap/react"
-gsap.registerPlugin(useGSAP,ScrollTrigger)
-import About from "./components/About"
-import Contact from "./components/Contact"
-import Experience from "./components/Experience"
-import Footer from "./components/Footer"
-import Header from "./components/Header"
-import Hero from "./components/Hero"
-import Skills from "./components/Skills"
+import ReactLenis from "lenis/react";
+import { AuroraBackground } from "./components/common/AuroraBackground";
+import { ScrollProgress } from "./components/common/ScrollProgress";
+import Header from "./components/Header";
+import Hero from "./components/Hero";
+import Proof from "./components/Proof";
+import About from "./components/About";
+import Services from "./components/Services";
+import Skills from "./components/Skills";
 import Work from "./components/Work";
-// import Work from "./components/Work"
+import Experience from "./components/Experience";
+import Metrics from "./components/Metrics";
+import Contact from "./components/Contact";
+import Footer from "./components/Footer";
 
 function App() {
-  useGSAP(() => {
-    const _nodes = gsap.utils.toArray('.reveal');
-    _nodes.forEach((_node:any) => {
-      gsap.to(_node,{
-        scrollTrigger: {
-          trigger:_node,
-          scrub:true
-        },
-        y:0,
-        opacity:1,
-        duration: 1,
-        ease: 'power3.out'
-      })
-    })
-  })
   return (
-    <ReactLenis root>
+    <ReactLenis root options={{ lerp: 0.1, smoothWheel: true }}>
+      <AuroraBackground />
+      <ScrollProgress />
       <Header />
       <main>
         <Hero />
+        <Proof />
         <About />
+        <Services />
         <Skills />
-        <section id="work">
-           <Work />
-          <Experience />
-        </section>
+        <Work />
+        <Experience />
+        <Metrics />
         <Contact />
       </main>
       <Footer />
     </ReactLenis>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,15 +1,11 @@
-"use client";
-import {
-  useScroll,
-  useTransform,
-  motion,
-} from "framer-motion";
-import React, { useEffect, useRef, useState } from "react";
+import { useScroll, useTransform, motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import type { ReactNode } from "react";
 
-interface TimelineEntry {
+type TimelineEntry = {
   title: string;
-  content: React.ReactNode;
-}
+  content: ReactNode;
+};
 
 export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -25,46 +21,37 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start 38%", "end 25%"],
+    offset: ["start 38%", "end 55%"],
   });
 
   const heightTransform = useTransform(scrollYProgress, [0, 1], [0, height]);
-  const opacityTransform = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
+  const opacityTransform = useTransform(scrollYProgress, [0, 0.08], [0, 1]);
 
   return (
     <div ref={containerRef} className="container">
-      <div ref={ref} className="relative max-w-7xl mx-auto pb-20">
+      <div ref={ref} className="relative mx-auto max-w-5xl pb-10">
         {data.map((item, index) => (
-          <div
-            key={index}
-            className="flex justify-start pt-10 md:pt-40 md:gap-10"
-          >
-            <div className="sticky flex flex-col md:flex-row z-40 items-center top-40 self-start max-w-xs lg:max-w-sm md:w-full">
-              <div className="hidden h-6 absolute -left-[0.65rem] md:left-[1.35rem] w-6 rounded-full bg-white dark:bg-stone-500 md:flex items-center justify-center">
-                <div className="h-4 w-4 rounded-full bg-stone-200 dark:bg-stone-800 border border-stone-300 dark:border-stone-700 hover:bg-stone-500 p-2" />
+          <div key={index} className="flex justify-start pt-10 md:gap-10 md:pt-28">
+            <div className="sticky top-32 z-30 flex max-w-xs flex-col items-start self-start md:w-52 md:flex-row lg:max-w-sm">
+              <div className="absolute -left-[3px] hidden h-7 w-7 items-center justify-center rounded-full bg-ink-100 ring-1 ring-white/10 md:left-1 md:flex">
+                <div className="h-3 w-3 rounded-full bg-accent shadow-[0_0_12px_rgba(52,211,153,0.9)]" />
               </div>
-              <h3 className="hidden md:block text-xl md:pl-20 md:text-5xl font-bold text-stone-500 dark:text-stone-500 ">
+              <h3 className="hidden font-display text-3xl font-bold text-white/20 md:block md:pl-16 md:text-4xl lg:text-5xl">
                 {item.title}
               </h3>
             </div>
 
-            <div className="relative pl-0 pr-0 md:pl-4 w-full">
-              {item.content}{" "}
-            </div>
+            <div className="relative w-full pl-0 md:pl-4">{item.content}</div>
           </div>
         ))}
+
         <div
-          style={{
-            height: height + "px",
-          }}
-          className="hidden md:block absolute md:left-8 left-0 top-0 overflow-hidden w-[2px] bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-[0%] via-neutral-200 dark:via-neutral-700 to-transparent to-[99%]  [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)] "
+          style={{ height: height + "px" }}
+          className="absolute left-2 top-0 hidden w-[2px] overflow-hidden bg-gradient-to-b from-transparent via-white/10 to-transparent [mask-image:linear-gradient(to_bottom,transparent_0%,black_8%,black_92%,transparent_100%)] md:block"
         >
           <motion.div
-            style={{
-              height: heightTransform,
-              opacity: opacityTransform,
-            }}
-            className="absolute inset-x-0 top-0  w-[2px] bg-gradient-to-t from-emerald-400 via-emerald-500 to-transparent from-[0%] via-[10%] rounded-full"
+            style={{ height: heightTransform, opacity: opacityTransform }}
+            className="absolute inset-x-0 top-0 w-[2px] rounded-full bg-gradient-to-t from-accent via-emerald-400 to-transparent"
           />
         </div>
       </div>

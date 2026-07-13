@@ -1,44 +1,47 @@
-import { useState, useRef } from "react"
-import { BsLinkedin } from "react-icons/bs"
-import { FaSquareGithub } from "react-icons/fa6"
-import { RiInstagramLine } from "react-icons/ri"
-import ThankYouModal from "../common/ThankYouModal"
+import { useState, useRef } from "react";
+import { BsLinkedin } from "react-icons/bs";
+import { FaSquareGithub } from "react-icons/fa6";
+import { RiInstagramLine } from "react-icons/ri";
+import { IoArrowForward } from "react-icons/io5";
+import ThankYouModal from "../common/ThankYouModal";
+import { SectionHeader } from "../common/SectionHeader";
+import { Reveal } from "../common/Reveal";
 
-type socialType = {
-    href:string,
-    icon:React.ReactNode
-}
+type Social = { href: string; icon: React.ReactNode; label: string };
 
-const socials = [
-    {
-        icon:<BsLinkedin/>,
-        href:"https://linkedin.com/in/mharrismalik"
-    },
-    {
-        icon:<FaSquareGithub/>,
-        href:"https://github.com/harrismalik"
-    },
-    {
-        icon:<RiInstagramLine/>,
-        href:"https://instagram.com/mharrismalik"
-    }
-]
+const socials: Social[] = [
+  {
+    icon: <BsLinkedin />,
+    href: "https://linkedin.com/in/mharrismalik",
+    label: "LinkedIn",
+  },
+  {
+    icon: <FaSquareGithub />,
+    href: "https://github.com/harrismalik",
+    label: "GitHub",
+  },
+  {
+    icon: <RiInstagramLine />,
+    href: "https://instagram.com/mharrismalik",
+    label: "Instagram",
+  },
+];
 
 export default function Contact() {
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [showThankYou, setShowThankYou] = useState(false);
-    const formRef = useRef<HTMLFormElement>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showThankYou, setShowThankYou] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        setIsSubmitting(true);
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
 
-        const formData = new FormData(e.currentTarget);
-        const name = formData.get("name") as string;
-        const email = formData.get("email") as string;
-        const message = formData.get("message") as string;
+    const formData = new FormData(e.currentTarget);
+    const name = formData.get("name") as string;
+    const email = formData.get("email") as string;
+    const message = formData.get("message") as string;
 
-        const htmlContent = `
+    const htmlContent = `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
                 <h2 style="color: #34d399; border-bottom: 2px solid #34d399; padding-bottom: 10px;">New Contact Message</h2>
                 <table style="width: 100%; border-collapse: collapse;">
@@ -58,89 +61,146 @@ export default function Contact() {
             </div>
         `;
 
-        const apiUrl = import.meta.env.VITE_NOTIFICATION_API_URL;
-        const apiAuth = import.meta.env.VITE_NOTIFICATION_API_AUTH;
-        const notificationEmail = import.meta.env.VITE_NOTIFICATION_EMAIL;
+    const apiUrl = import.meta.env.VITE_NOTIFICATION_API_URL;
+    const apiAuth = import.meta.env.VITE_NOTIFICATION_API_AUTH;
+    const notificationEmail = import.meta.env.VITE_NOTIFICATION_EMAIL;
 
-        try {
-            const response = await fetch(apiUrl, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                    "Authorization": apiAuth
-                },
-                body: JSON.stringify({
-                    type: "website_form",
-                    to: {
-                        id: notificationEmail,
-                        email: notificationEmail
-                    },
-                    email: {
-                        subject: `New Contact Message from ${name}`,
-                        html: htmlContent
-                    }
-                })
-            });
+    try {
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: apiAuth,
+        },
+        body: JSON.stringify({
+          type: "website_form",
+          to: {
+            id: notificationEmail,
+            email: notificationEmail,
+          },
+          email: {
+            subject: `New Contact Message from ${name}`,
+            html: htmlContent,
+          },
+        }),
+      });
 
-            if (response.ok) {
-                formRef.current?.reset();
-                setShowThankYou(true);
-            } else {
-                console.error("Form submission failed");
-            }
-        } catch (error) {
-            console.error("Error submitting form:", error);
-        } finally {
-            setIsSubmitting(false);
-        }
-    };
+      if (response.ok) {
+        formRef.current?.reset();
+        setShowThankYou(true);
+      } else {
+        console.error("Form submission failed");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
-    return (
-        <section id="contact" className="section">
-            <div className="container lg:grid lg:grid-cols-2 lg:items-stretch">
-                <div className="mb-12 lg:mb-0 lg:flex lg:flex-col">
-                    <h2 className="headline-2 lg:max-w-[12ch]">
-                        Have a Project in Mind?
-                    </h2>
-                    <p className="text-stone-400 mt-2 max-w-[50ch] lg:max-w-[30ch]">
-                        Whether it's an AI-powered application, automation system, or a full product build, let's talk about bringing your idea to life.
-                    </p>
-                    <div className="flex items-center gap-2 mt-4 md:mt-auto">
-                        {
-                            socials.map((item:socialType,key) => (
-                                <a href={item.href} key={key} target="_blank" className="w-12 h-12 grid place-items-center 
-                                ring-inset ring-2 ring-stone-50/5 rounded-lg transition-[background-color,color] hover:bg-stone-50 hover:text-stone-900">{item.icon}</a>
-                            ))
-                        }
-                    </div>
-                </div>
+  return (
+    <section id="contact" className="section">
+      <div className="container">
+        <div className="panel grain relative overflow-hidden p-7 md:p-12">
+          <div className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-accent/10 blur-3xl" />
 
-                <form ref={formRef} onSubmit={handleSubmit} className="xl:pl-10 2xl:pl-20">
-                    <div className="md:grid md:items-center md:grid-cols-2 md:gap-2">
-                        <div className="mb-4">
-                            {/* <label htmlFor="name" className="">Name</label> */}
-                            <input type="text" name="name" className="text-field" id="name"
-                             autoComplete="name" placeholder="Enter Name" required/>
-                        </div>
-                        <div className="mb-4">
-                            {/* <label htmlFor="email" className="">Email</label> */}
-                            <input type="email" name="email" className="text-field" id="email"
-                             autoComplete="email" placeholder="Enter Email" required/>
-                        </div>
-                    </div>
-                    <div className="mb-4">
-                        {/* <label htmlFor="message" className="label">Message</label> */}
-                        <textarea name="message" id="message" className="text-field resize-y min-h-32 max-h-80" placeholder="Write your message!" required></textarea>
-                    </div>
-                    <button type="submit" disabled={isSubmitting} className="btn btn-primary [&]:max-w-full w-full justify-center disabled:opacity-70 disabled:cursor-not-allowed">
-                        {isSubmitting ? "Sending..." : "Submit"}
-                    </button>
-                </form>
+          <div className="relative grid gap-10 lg:grid-cols-2 lg:items-center">
+            {/* Left */}
+            <div className="flex flex-col">
+              <SectionHeader
+                eyebrow="Contact"
+                title={<>Have a project in&nbsp;mind?</>}
+                description="Whether it's an AI-powered application, an automation system, or a full product build — let's talk about bringing your idea to life."
+              />
+
+              <a
+                href="mailto:contact@mharrismalik.com"
+                className="group mt-8 inline-flex w-max items-center gap-2 font-display text-lg font-medium text-white transition-colors hover:text-accent"
+              >
+                contact@mharrismalik.com
+                <IoArrowForward className="transition-transform duration-300 group-hover:translate-x-1" />
+              </a>
+
+              <div className="mt-8 flex items-center gap-2.5">
+                {socials.map((item) => (
+                  <a
+                    href={item.href}
+                    key={item.label}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={item.label}
+                    className="grid h-11 w-11 place-items-center rounded-xl text-lg text-white/70 ring-1 ring-inset ring-white/10 transition-all hover:bg-white hover:text-ink"
+                  >
+                    {item.icon}
+                  </a>
+                ))}
+              </div>
             </div>
 
-            {/* Thank You Modal */}
-            <ThankYouModal isOpen={showThankYou} onClose={() => setShowThankYou(false)} />
-        </section>
-    )
+            {/* Form */}
+            <Reveal delay={0.1}>
+              <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid gap-4 md:grid-cols-2">
+                  <div>
+                    <label htmlFor="name" className="label">
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      id="name"
+                      autoComplete="name"
+                      placeholder="Your name"
+                      required
+                      className="text-field"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="label">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      id="email"
+                      autoComplete="email"
+                      placeholder="you@email.com"
+                      required
+                      className="text-field"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label htmlFor="message" className="label">
+                    Message
+                  </label>
+                  <textarea
+                    name="message"
+                    id="message"
+                    placeholder="Tell me about your project…"
+                    required
+                    className="text-field max-h-80 min-h-32 resize-y"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="btn btn-primary w-full justify-center disabled:cursor-not-allowed disabled:opacity-70"
+                >
+                  {isSubmitting ? "Sending…" : "Send message"}
+                  {!isSubmitting && <IoArrowForward />}
+                </button>
+              </form>
+            </Reveal>
+          </div>
+        </div>
+      </div>
+
+      <ThankYouModal
+        isOpen={showThankYou}
+        onClose={() => setShowThankYou(false)}
+      />
+    </section>
+  );
 }
